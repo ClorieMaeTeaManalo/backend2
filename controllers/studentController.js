@@ -42,3 +42,4 @@ export const editStudent = async (req, res) => {
         });
     }
 }
+
