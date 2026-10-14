@@ -1,42 +1,44 @@
-import * as studentServices from '../services/studentServices.js';
+import * as studentService from '../services/studentServices.js';
 
-export const fetchAllStudent = async (req, res) => {
-    const student = await studentServices.fetchAllStudent();
-    res.status(200).json(student);
-};
+export const fetchAllStudents = async (request, response) => {
+    const student = await studentService.fetchAllStudents();
+    response.status(200).json(student);
+}
 
-<<<<<<< HEAD
-
-export const createStudent = async (req,res) => {
+export const createStudent = async (req, res) =>{
     const { name, srcode, program } = req.body;
     const student = { name, srcode, program };
-    
+
     try{
-        const studentId = await studentServices.createStudent(student);
-        res.status(200).json({
-            success: true,
-            message:studentId
-        });
-    }catch(e){
-        console.log(e);
-        res.status(500).json({
-            error: "Internal Server Error"
-=======
-export const createStudent = async (req, res) => {
-    const { name, srcode, program } = req.body;
-    const student = { name, srcode, program };
-
-    try {
-        const studentId = await studentServices.createStudent(student);
+        const studentId = await studentService.createStudent(student);
         res.status(200).json({
             success: true,
             message: studentId
         });
+    }catch(e){
+        console.error(e);
+        res.status(500).json({
+            error: "Internal Server Error"
+        });
+    }
+}
+
+
+export const editStudent = async (req, res) => {
+    const { name, srcode, program } = req.body;
+    const { id } = req.params;
+    const student = {id:parseInt(id), name, srcode, program };
+
+    try {
+        const updatedStudent = await studentService.updateStudent(student);
+        res.status(200).json({
+            success: true,
+            message: updatedStudent
+        });
     } catch (e) {
         console.log(e);
         res.status(500).json({
-            error: "Internal server Error"
->>>>>>> 761e369bf11f40d54c6b7991fb41e5f87c938732
+            error: "Internal Server Error"
         });
     }
 }

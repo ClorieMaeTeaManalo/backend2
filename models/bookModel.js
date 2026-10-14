@@ -15,14 +15,12 @@ export const insert = async (book) =>{
     return result.insertId;
 } 
 
-export const insert = async (book) => {
-    const [result] = await pool.query(
-        "INSERT INTO book(name, author) VALUES (?,?)",
-        [book.name, book.author]
+// update 
+export const update = async (book) => {
+    const [result] = await pool.query (
+        "UPDATE book SET name= ?, author= ? WHERE id= ?",
+        [book.name, book.author, book.id]
     );
-    return result.insertId;
+    return result.affectedRows;
 }
-
-
->>>>>>> 761e369bf11f40d54c6b7991fb41e5f87c938732
 

@@ -5,7 +5,6 @@ export const fetchAllBooks = async (req, res) => {
     res.status(200).json(book);
 };
 
-<<<<<<< HEAD
 export const createBooks = async (req,res) => {
     console.log(req.body);
     const { name, author } = req.body;
@@ -24,22 +23,22 @@ export const createBooks = async (req,res) => {
         });
     }
 }
-=======
-export const createBook = async (req, res) => {
+
+export const editBook = async (req, res) => {
     const { name, author } = req.body;
-    const book = { name, author };
+    const { id } = req.params;
+    const book = {id:parseInt(id), name, author };
 
     try {
-        const bookId = await bookServices.createBook(book);
+        const updatedBook = await bookServices.updateBook(book);
         res.status(200).json({
             success: true,
-            message: bookId
+            message: updatedBook
         });
     } catch (e) {
         console.log(e);
         res.status(500).json({
-            error: "Internal server Error"
+            error: "Internal Server Error"
         });
     }
 }
->>>>>>> 761e369bf11f40d54c6b7991fb41e5f87c938732
